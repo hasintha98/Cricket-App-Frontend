@@ -1,38 +1,41 @@
 import { Button, Container } from '@mui/material'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { animateCSS } from '../animation/triggerAnimation'
 import HomeImage from '../assets/images/home-page-image.png'
 
 const HomePage = () => {
-    const animateCSS = (element, animation, prefix = 'animate__') =>
-        // We create a Promise and return it
-        new Promise((resolve, reject) => {
-            const animationName = `${prefix}${animation}`;
-            const node = document.querySelector(element);
-            console.log(node, element, animation, prefix)
-            node.classList.add(`${prefix}animated`, animationName);
 
-            // When the animation ends, we clean the classes and resolve the Promise
-            function handleAnimationEnd(event) {
-                event.stopPropagation();
-                node.classList.remove(`${prefix}animated`, animationName);
-                resolve('Animation ended');
-            }
+    const navigate = useNavigate()
 
-            node.addEventListener('animationend', handleAnimationEnd, { once: true });
-        });
+    const handleStartBtn = async () => {
+        animateCSS(".start-btn", 'bounceOutDown', true, 1000)
+        animateCSS(".start-content", 'bounceOutUp', true, 1000)
+    
+        setTimeout(
+            () => {
+                navigate('/login')
+            },
+            1000
+        );
+    }
+
     return (
-        <Container style={{ textAlign: 'center' }} fixed>
-            <div className='animate__animated animate__backInDown'>
-                <img src={HomeImage} className="animate__animated animate__bounce  animate__1 animate__delay-5s" />
+        <Container style={{ textAlign: 'center'}} fixed>
+            <div className='start-content animate__slow'>
+                <div className='animate__animated animate__backInDown'>
+                    <img src={HomeImage} width={300} className="home-img animate__animated animate__bounce  animate__1 animate__delay-5s" />
+                </div>
+                <h2 style={{ color: '#BD1307', fontWeight: 'bold', fontSize: '2em' }} className="app-name animate__animated animate__lightSpeedInLeft animate__delay-1s">Cricket Game Application</h2>
             </div>
-            <p style={{ color: '#BD1307', fontWeight: 'bold', fontSize: '2em' }} className="animate__animated animate__backInUp animate__delay-1s">Cricket Game Application</p>
-            <div className='my-element animate__animated animate__rubberBand'>
+            <div className='animate__animated animate__backInUp animate__delay-1s'>
                 <Button
                     variant="contained"
                     color="error"
-                    className="animate__animated animate__backInUp animate__delay-1s"
-                    onClick={() => animateCSS(".my-element", 'animate__rubberBand')}>
-                    START
+                    className="start-btn animate__slow"
+                    hidden={true}
+                    onClick={() => handleStartBtn()}>
+                    PLAY NOW
                 </Button>
             </div>
         </Container>

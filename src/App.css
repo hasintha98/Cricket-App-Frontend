@@ -12,10 +12,74 @@ body {
   pointer-events: none;
 }
 
+.input-ball {
+  height: 50px;
+  width: 55px;
+  margin-top: 10px;
+}
+
+.input-field {
+  background-color: aliceblue;
+  border-radius: 25px;
+  border-style: none;
+  height: 50px;
+  box-shadow: 10px 10px 20px rgb(56, 41, 41);
+}
+
+
+
+.input-field input {
+  padding-top: 12px;
+  padding-left: 10px;
+  font-size: 1.1em;
+}
+
+
+
+.input-field::before {
+  background-color: rgb(255, 240, 240) ;
+  outline:none;
+}
+
+.next-btn {
+  width: 270px;
+  border-style: none;
+  margin-top: 5% !important;
+  border-radius: 100px !important;
+}
+
+.validation-msg {
+  color: #BD1307;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 0.8em;
+  margin-top: 20px;
+
+}
+
+@media (max-width:600px) {
+
+  .next-btn {
+    margin-top: 15% !important;
+  }
+
+  
+
+}
+
+
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+
+  /* 
+  .home-img {
+    width: 100px;
+  } */
+
 }
 
 .App-header {
@@ -37,6 +101,7 @@ body {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
