@@ -26,10 +26,10 @@ const LoginPage = () => {
             return
         }
 
-        if(mobileNumber.length != 10) {
-            if(mobileValidationAlert) animateCSS(".input-with-number", 'jello', true, 0)
+        if (mobileNumber.length != 10) {
+            if (mobileValidationAlert) animateCSS(".input-with-number", 'jello', true, 0)
             setMobileValidationAlert(true)
-            return 
+            return
         }
 
 
@@ -49,11 +49,11 @@ const LoginPage = () => {
     const classes = (theme) => createStyles({
         input: {
             '&::placeholder': {
-              fontStyle: 'italic',
-              fontSize: '100px'
+                fontStyle: 'italic',
+                fontSize: '100px'
             },
-          },
-        });
+        },
+    });
     return (
         <Container style={{ textAlign: 'center', marginTop: '10%' }} fixed>
             <div className='top-heading'>
@@ -80,7 +80,7 @@ const LoginPage = () => {
                                     </InputAdornment>
                                 ),
                                 disableUnderline: true,
-                                classes: { input: classes.input}
+                                classes: { input: classes.input }
 
                             }}
 
@@ -100,18 +100,20 @@ const LoginPage = () => {
                             placeholder='07XXXXXXXX'
                             onChange={(e) => setMobileNumber(e.target.value)}
                             value={mobileNumber}
+                            pattern="[0-9]*"
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
                                         <img src={HomeImage} width={300} className="input-ball" />
                                     </InputAdornment>
                                 ),
-                                disableUnderline: true
+                                disableUnderline: true,
+                                inputMode: 'numeric'
 
                             }}
 
                         />
-                        {mobileValidationAlert ? <p className='validation-msg animate__animated animate__slideInDown'>Enter a valid mobile number !</p> : <p></p> }
+                        {mobileValidationAlert ? <p className='validation-msg animate__animated animate__slideInDown'>Enter a valid mobile number !</p> : <p></p>}
                     </div>
                 </div>
             </div>
