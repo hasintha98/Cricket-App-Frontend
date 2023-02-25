@@ -1,10 +1,9 @@
 import { Container } from '@mui/system'
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import React, { useState } from 'react'
-import HomeImage from '../assets/images/ball.png'
-import { Button, createStyles, FormControl, makeStyles, TextField } from '@mui/material';
+import HomeImage from '../assets/images/ball.png';
+import Logo from '../assets/images/Logo-01.png'
+import { Button, createStyles, TextField } from '@mui/material';
 import { animateCSS } from '../animation/triggerAnimation'
 import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
@@ -35,12 +34,13 @@ const LoginPage = () => {
 
 
         animateCSS(".input-container-name", 'bounceOutRight', true, 1000)
-        animateCSS(".input-container-number", 'bounceOutRight', true, 1000)
-        animateCSS(".top-heading", 'bounceOutUp', true, 1000)
-        animateCSS(".next-btn", 'bounceOutDown', true, 1000)
+        animateCSS(".input-container-number", 'bounceOutLeft', true, 1000)
+        
+        // animateCSS(".top-heading", 'bounceOutUp', true, 1000)
+        // animateCSS(".next-btn", 'bounceOutDown', true, 1000)
         setTimeout(
             () => {
-                navigate('/')
+                navigate('/otp')
             },
             1000
         );
@@ -55,17 +55,17 @@ const LoginPage = () => {
         },
     });
     return (
-        <Container style={{ textAlign: 'center', marginTop: '10%' }} fixed>
-            <div className='top-heading'>
-                <h2 style={{ color: '#BD1307', fontWeight: 'bold', fontSize: '2em' }} className="animate__animated animate__bounceInDown">Login</h2>
+        <Container style={{ textAlign: 'center', marginTop: '5%' }} fixed>
+            <div className='top-heading mb-3'>
+                <h2 style={{ color: '#cf4036', fontWeight: 'bold', fontSize: '2em', WebkitTextStroke: "0.5px #BD1307" }} className="animate__animated animate__bounceInDown">Login</h2>
 
             </div>
-            <div className='animate__animated animate__lightSpeedInLeft'>
+            <div className='animate__animated animate__lightSpeedInLeft '>
                 <div className='input-container-name'>
 
 
 
-                    <p style={{ fontWeight: 'bold', fontSize: '1em' }}>Name</p>
+                    <p style={{ fontWeight: 'bold', fontSize: '1em', color: "#fff" }}>Name</p>
                     <div className='input-with-name'>
                         <TextField
                             variant="standard"
@@ -91,7 +91,7 @@ const LoginPage = () => {
             <br />
             <div className='animate__animated animate__lightSpeedInLeft'>
                 <div className='input-container-number'>
-                    <p style={{ fontWeight: 'bold', fontSize: '1em' }}>Mobile number</p>
+                    <p style={{ fontWeight: 'bold', fontSize: '1em', color: "#fff" }}>Mobile number</p>
                     <div className='input-with-number'>
                         <TextField
                             variant="standard"
@@ -123,15 +123,14 @@ const LoginPage = () => {
                     variant="contained"
                     color="error"
                     className="next-btn"
-                    hidden={true}
                     onClick={() => handleNextBtn()}
                 >
                     NEXT
                 </Button>
             </div>
-
-
-
+            <div className='animate__animated animate__backInUp'>
+                <img src={Logo} className="logo-img animate__slow" />
+            </div>
         </Container>
     )
 }
