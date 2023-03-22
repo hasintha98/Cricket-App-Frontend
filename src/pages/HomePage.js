@@ -1,12 +1,12 @@
 import { Button, Container } from '@mui/material'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { animateCSS } from '../animation/triggerAnimation'
 import HomeImage from '../assets/images/Logo-01.png'
 
 const HomePage = () => {
 
-    const navigate = useNavigate()
+    const navigate = useHistory()
 
     const handleStartBtn = async () => {
         animateCSS(".start-btn", 'bounceOutDown', true, 1000)
@@ -14,7 +14,7 @@ const HomePage = () => {
     
         setTimeout(
             () => {
-                navigate('/login')
+                navigate.push('/login')
             },
             1000
         );

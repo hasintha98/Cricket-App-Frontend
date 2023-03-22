@@ -1,10 +1,11 @@
 import './App.css';
 import './styles/home.css'
 import React, { Suspense } from 'react';
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Router, Routes, Switch } from 'react-router-dom';
 import OTPPage from './pages/OTPPage';
 import MatchSelectionPage from './pages/MatchSelectionPage';
 import MatchPage from './pages/MatchPage';
+import { BrowserRouter } from 'react-router-dom';
 const HomePage = React.lazy(() => import('./pages/HomePage'))
 const LoginPage = React.lazy(() => import('./pages/LoginPage'))
 
@@ -17,17 +18,17 @@ const loading = (
 function App() {
   return (
     <div>
-      <HashRouter>
+      <BrowserRouter>
         <Suspense fallback={loading}>
-          <Routes>
-            <Route path="*" name="Home" element={<HomePage />} />
-            <Route path="/login" name="Login" element={<LoginPage />} />
-            <Route path="/otp" name="OTP" element={<OTPPage />} />
-            <Route path="/selection" name="Match-Selection" element={<MatchSelectionPage />} />
-            <Route path="/match" name="Match" element={<MatchPage />} />
-          </Routes>
+          <Switch>
+            <Route exact path="/" name="Home" component={HomePage} />
+            <Route path="/login" name="Login" component={LoginPage} />
+            <Route path="/otp" name="OTP" component={OTPPage} />
+            <Route path="/selection" name="Match-Selection" component={MatchSelectionPage} />
+            <Route path="/match" name="Match" component={MatchPage} />
+          </Switch>
         </Suspense>
-      </HashRouter>
+      </BrowserRouter>
     </div>
   );
 }

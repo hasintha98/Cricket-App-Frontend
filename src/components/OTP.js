@@ -1,22 +1,27 @@
-import { Container } from '@mui/system'
-import InputAdornment from '@mui/material/InputAdornment';
+import { Button, createStyles, InputAdornment, TextField } from '@mui/material'
 import React, { useState } from 'react'
-import HomeImage from '../assets/images/ball.png'
-import { Button, createStyles, FormControl, makeStyles, TextField } from '@mui/material';
-import { animateCSS } from '../animation/triggerAnimation'
-import { useHistory, useNavigate } from 'react-router-dom';
-import Logo from '../assets/images/Logo-01.png'
-const OTPPage = () => {
+import { useHistory } from 'react-router';
+import { animateCSS } from '../animation/triggerAnimation';
+import BallImage from '../assets/images/ball.png';
+function OTP({ generatedOTP, username, mobile }) {
     const navigate = useHistory()
     const [name, setName] = useState("")
     const [otp, setOTP] = useState("")
     const [mobileValidationAlert, setMobileValidationAlert] = useState(false)
-
+    console.log(generatedOTP, username, mobile)
     const handleNextBtn = async () => {
         setMobileValidationAlert(false)
 
         if (otp == "") {
             animateCSS(".input-with-number", 'jello', true, 0)
+            return
+        }
+
+        if (otp != generatedOTP) {
+            setMobileValidationAlert(true)
+            if (mobileValidationAlert)
+                animateCSS(".input-with-number", 'jello', true, 0)
+
             return
         }
 
@@ -27,6 +32,7 @@ const OTPPage = () => {
         animateCSS(".logo-img", 'bounceOutDown', true, 1000)
         setTimeout(
             () => {
+                localStorage.setItem("username", username)
                 navigate.push('/selection')
             },
             1000
@@ -42,28 +48,24 @@ const OTPPage = () => {
         },
     });
     return (
-        <Container style={{ textAlign: 'center', marginTop: '10%' }} fixed>
-            <div className='top-heading'>
-                <h2 style={{ color: '#cf4036', fontWeight: 'bold', fontSize: '2em', WebkitTextStroke: "0.5px #BD1307" }} className="animate__animated">Login</h2>
-
-            </div>
-
+        <>
             <div style={{ marginTop: '60px' }} className='animate__animated animate__lightSpeedInLeft'>
                 <div className='input-container-number'>
+                    {/* <span style={{ fontWeight: 'bold', fontSize: '0.6em', color: "#000" }}>{generatedOTP}</span> */}
                     <p style={{ fontWeight: 'bold', fontSize: '1em', color: "#fff" }}>OTP (One Time Password)</p>
                     <div className='input-with-number'>
                         <TextField
                             variant="standard"
                             id="input-with-icon-adornment"
                             className='input-field'
-                            placeholder='XXXX'
+                            placeholder='XXXXXX'
                             onChange={(e) => setOTP(e.target.value)}
                             type={"number"}
                             value={otp}
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
-                                        <img src={HomeImage} width={300} className="input-ball" />
+                                        <img src={BallImage} width={300} className="input-ball" />
                                     </InputAdornment>
                                 ),
                                 disableUnderline: true,
@@ -73,7 +75,9 @@ const OTPPage = () => {
 
                         />
 
-                        {mobileValidationAlert ? <p className='validation-msg animate__animated animate__slideInDown'>Enter a valid mobile number !</p> : <p></p>}
+                        {mobileValidationAlert ?
+                            <span className='validation-msg-otp'><p className='validation-msg animate__animated animate__slideInDown'>Invalid OTP! Please Re-try.</p></span> :
+                            <p></p>}
                         <p style={{ fontWeight: 'bold', fontSize: '0.9em', color: "#fff" }}>We have sent an SMS to your phone</p>
                     </div>
                 </div>
@@ -89,13 +93,8 @@ const OTPPage = () => {
                     LOGIN
                 </Button>
             </div>
-
-
-            <img src={Logo} className="logo-img " />
-
-
-        </Container>
+        </>
     )
 }
 
-export default OTPPage
+export default OTP

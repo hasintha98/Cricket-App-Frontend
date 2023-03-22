@@ -1,4 +1,4 @@
-import { Button, Container, InputAdornment, TextField } from '@mui/material'
+import { Box, Button, Container, InputAdornment, TextField } from '@mui/material'
 import Ball from '../assets/images/ball.png'
 import React, { useState } from 'react'
 import { styled } from '@mui/material/styles';
@@ -6,6 +6,9 @@ import { Player } from '@lottiefiles/react-lottie-player';
 import * as animationData from '../assets/lottie/104144-cricket-ball.json'
 import { CModal } from '@coreui/react';
 import Countdown from 'react-countdown';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import Swal from 'sweetalert2';
+import { useHistory } from 'react-router';
 const AnswerButton = styled(Button)({
   boxShadow: 'none',
   textTransform: 'none',
@@ -71,10 +74,36 @@ function RunSelection({ changeStatus }) {
     if (e == 'complete')
       changeStatus(selectedRun)
   }
+  const navigate = useHistory()
+  const exitMatch = () => {
+
+    navigate.push('/selection')
+
+  }
 
 
   return (
     <>
+      <div className='points animate__animated animate__bounceInDown'>
+      <Button  color="error" size="small" style={{height: 45, width: 20, marginTop: "10px"}} onClick={() => exitMatch()}>
+                <ExitToAppIcon style={{fontSize: '3em'}} />
+                </Button>
+        <Box
+          sx={{
+            width: 70,
+            height: "auto",
+            backgroundColor: '#BD1307',
+            borderRadius: "10px"
+          }}
+        >
+
+          <p style={{ color: "#fff", fontWeight: 'bold', fontSize: "1.2em", margin: 5 }}>{JSON.parse(sessionStorage.getItem("matchSession")).score} / {JSON.parse(sessionStorage.getItem("matchSession")).wickets}</p>
+          <hr style={{ borderWidth: "2px", borderColor: "#fff", opacity: 100, padding: 0, margin: 0 }} />
+          <p style={{ color: "#fff", fontWeight: 'bold', fontSize: "0.5em", margin: 5 }}> Balls {JSON.parse(sessionStorage.getItem("matchSession")).current - 1}/{JSON.parse(sessionStorage.getItem("matchSession")).matchSize}</p>
+
+        </Box>
+      </div>
+      <br />
       <div className='top-heading'>
         <h2 style={{ color: '#cf4036', fontWeight: 'bold', fontSize: '2em', WebkitTextStroke: "0.5px #BD1307" }} className="animate__animated animate__bounceInDown">Select Your Run</h2>
 
